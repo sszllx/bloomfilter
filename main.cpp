@@ -2,6 +2,7 @@
 
 #include "bloom_filter.h"
 #include <QDebug>
+#include <QFile>
 
 int main(int argc, char *argv[])
 {
@@ -19,6 +20,11 @@ int main(int argc, char *argv[])
 
     parameters.compute_optimal_parameters();
     bloom_filter filter(parameters);
+
+    QFile data_file(QCoreApplication::applicationDirPath() + "/bfdata");
+    if (data_file.exists()) {
+        filter.load_file(data_file);
+    }
 
     filter.insert("a");
     filter.insert("bb");

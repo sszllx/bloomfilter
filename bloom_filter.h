@@ -28,6 +28,8 @@
 #include <string>
 #include <vector>
 
+#include <QFile>
+
 
 static const std::size_t bits_per_char = 0x08;    // 8 bits in 1 char(unsigned)
 
@@ -454,6 +456,16 @@ public:
    inline std::size_t hash_count()
    {
       return salt_.size();
+   }
+
+   inline void load_file(QFile file)
+   {
+      if (!file.open(QIODevice::ReadOnly)) {
+          return;
+      }
+
+      char *data = file.readAll().data();
+
    }
 
 protected:
